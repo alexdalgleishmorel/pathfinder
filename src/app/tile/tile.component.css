@@ -28,3 +28,11 @@
 .source:hover {
     background-color: blue;
 }
+
+.searched {
+    background-color: yellow;
+    border: 1px solid yellow;
+}
+.searched:hover {
+    background-color: lightyellow;
+}
