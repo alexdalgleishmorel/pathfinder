@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+declare function aStarPathfinder(start: any, goal:any, rows:number, cols:number): any;
 
 @Component({
   selector: 'app-tile',
@@ -23,5 +24,7 @@ export class TileComponent implements OnInit {
   onClick() {
     this.target = true;
     this.default = false;
+
+    console.log(aStarPathfinder([this.rowNumber, this.colNumber], [5,5], 18, 37));
   }
 }

@@ -25,7 +25,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/aStarPathfinder.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -92,7 +94,10 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/aStarPathfinder.js",
+              "src/assets/js/priorityQueue.js"
+            ]
           }
         }
       }
