@@ -1,0 +1,30 @@
+.tile {
+    height: 50px;
+    width: 50px;
+    background-color: black;
+    border: 1px solid grey;
+}
+
+.default {
+    background-color: black;
+    border: 1px solid grey;
+}
+.default:hover {
+    background-color: grey;
+}
+
+.target {
+    background-color: green;
+    border: 1px solid green;
+}
+.target:hover {
+    background-color: darkgreen;
+}
+
+.source {
+    background-color: lightblue;
+    border: 1px solid lightblue;
+}
+.source:hover {
+    background-color: blue;
+}

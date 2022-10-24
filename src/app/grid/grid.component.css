@@ -1,0 +1,10 @@
+.grid-container {
+    display: grid;
+    gap: 0.5px 0.5px;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+}
+
+.grid-row {
+    margin:0;
+}
