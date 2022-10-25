@@ -8,3 +8,9 @@
 .grid-row {
     margin:0;
 }
+
+.divider{
+    width:2px;
+    height:auto;
+    display:inline-block;
+}

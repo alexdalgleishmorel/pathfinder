@@ -1,5 +1,6 @@
 <div class="grid-row" *ngFor="let row of grid">
     <span *ngFor="let tile of row">
         <app-tile [tilePosition]="tile"></app-tile>
+        <div class="divider"></div>
     </span>
 </div>

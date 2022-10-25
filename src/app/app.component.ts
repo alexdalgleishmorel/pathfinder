@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ALGORITHMS } from 'src/assets/constants';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pathfinder';
+  public algorithms: string[] = ALGORITHMS;
 }
