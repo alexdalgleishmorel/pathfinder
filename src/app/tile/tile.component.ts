@@ -23,10 +23,8 @@ export class TileComponent implements OnInit {
 
     this.service.getChangedTileValue().subscribe((value) => {
       if(this.rowNumber == value[0] && this.colNumber == value[1]) {
-        console.log('%s is equal to %s', [this.rowNumber, this.colNumber], value);
         this.default = false;
         this.searched = true;
-        console.log(this.searched);
       }
     });
   }
