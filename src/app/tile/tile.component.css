@@ -14,19 +14,19 @@
 }
 
 .target {
-    background-color: green;
-    border: 1px solid green;
+    background-color: indigo;
+    border: 1px solid indigo;
 }
 .target:hover {
-    background-color: darkgreen;
+    background-color: indigo;
 }
 
 .source {
-    background-color: lightblue;
-    border: 1px solid lightblue;
+    background-color: red;
+    border: 1px solid red;
 }
 .source:hover {
-    background-color: blue;
+    background-color: red;
 }
 
 .searched {

@@ -10,12 +10,14 @@ import { AppComponent } from './app.component';
 import { TileComponent } from './tile/tile.component';
 import { GridComponent } from './grid/grid.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ControlButtonsComponent } from './control-buttons/control-buttons.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TileComponent,
-    GridComponent
+    GridComponent,
+    ControlButtonsComponent
   ],
   imports: [
     BrowserModule,

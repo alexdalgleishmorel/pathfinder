@@ -1,0 +1,13 @@
+.control-button-row {
+    text-align: center;
+}
+
+.vertical-divider {
+    height:20px;
+}
+
+.horizontal-divider {
+    width:50px;
+    height:auto;
+    display:inline-block;
+}

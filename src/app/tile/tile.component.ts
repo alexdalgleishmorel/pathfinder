@@ -9,34 +9,60 @@ import { GridDataService } from '../services/gridService/grid-data.service';
 })
 export class TileComponent implements OnInit {
   @Input() tilePosition: any;
-  public rowNumber: number = 0;
-  public colNumber: number = 0;
+  public coordinate: number[] = [];
   public default: boolean = true;
   public source: boolean = false;
   public target: boolean = false; 
   public searched: boolean = false;
 
   constructor(
-    private gridDataService: GridDataService,
-    private aStarPathfinderService: AStarPathfinderService
+    private gridDataService: GridDataService
     ) { }
 
   ngOnInit(): void {
-    this.rowNumber = this.tilePosition[0];
-    this.colNumber = this.tilePosition[1];
+    this.coordinate = [this.tilePosition[0], this.tilePosition[1]];
 
+    // Checking for when a tile is discovered by a search algorithm, and changing its color when this occurs
     this.gridDataService.getChangedTileValue().subscribe((value) => {
-      if(this.rowNumber == value[0] && this.colNumber == value[1]) {
+      if(this.coordinate[0] == value[0] && this.coordinate[1] == value[1]) {
         this.default = false;
         this.searched = true;
+      }
+    });
+
+    // Checking for when a tile is set to the source, and it isn't this one, making sure this tile now becomes default color
+    this.gridDataService.getSourceTileValue().subscribe((value) => {
+      if((this.coordinate[0] !== value[0] || this.coordinate[1] !== value[1]) && this.source) {
+        this.default = true;
+        this.source = false;
+        this.target = false;
+      }
+    });
+
+    // Checking for when a tile is set to the target, and it isn't this one, making sure this tile now becomes default color
+    this.gridDataService.getTargetTileValue().subscribe((value) => {
+      if((this.coordinate[0] !== value[0] || this.coordinate[1] !== value[1]) && this.target) {
+        this.default = true;
+        this.source = false;
+        this.target = false;
       }
     });
   }
 
   onClick() {
-    this.target = true;
-    this.default = false;
-
-    console.log(this.aStarPathfinderService.aStarPathfinder([this.rowNumber, this.colNumber], [5,5], 18, 37));
+    // If the user is currently choosing a source tile, then set the source tile value to be this tile's
+    if (this.gridDataService.sourceSelect) {
+      this.gridDataService.setSourceTileValue(this.coordinate);
+      this.default = false;
+      this.target = false;
+      this.source = true;
+    }
+    // If the user is currently choosing a target tile, then set the target tile value to be this tile's
+    else if (this.gridDataService.targetSelect) {
+      this.gridDataService.setTargetTileValue(this.coordinate);
+      this.default = false;
+      this.source = false;
+      this.target = true;
+    }
   }
 }

@@ -11,6 +11,14 @@ export class GridDataService {
   private changedTile: any;
   private sourceTile: any;
   private targetTile: any;
+  private enableSource: boolean = true;
+  public sourceSelect: boolean = false;
+  private enableTarget: boolean = true;
+  public targetSelect: boolean = false;
+  public enableExecute: boolean = false;
+  public executeSelected: boolean = false;
+  private enableWall: boolean = true;
+  public wallSelect: boolean = false;
   public rows: any;
   public cols: any;
 
@@ -21,8 +29,8 @@ export class GridDataService {
     this.cols = Math.floor(innerWidth/TILE_SPACE);
     this.initializeGrid();
     this.changedTile = new BehaviorSubject<any[]>([]);
-    this.sourceTile = new BehaviorSubject<number[]>([]);
-    this.targetTile = new BehaviorSubject<number[]>([]);
+    this.sourceTile = new BehaviorSubject<any[]>([]);
+    this.targetTile = new BehaviorSubject<any[]>([]);
   }
 
   initializeGrid() {
@@ -52,7 +60,7 @@ export class GridDataService {
   }
 
   setSourceTileValue(newValue: any[]): void {
-    this.sourceTile = newValue;
+    this.sourceTile.next(newValue);
   }
 
   getTargetTileValue(): Observable<any[]> {
@@ -60,6 +68,24 @@ export class GridDataService {
   }
 
   setTargetTileValue(newValue: any[]): void {
-    this.targetTile = newValue;
+    this.targetTile.next(newValue);
+  }
+
+  enableSourceSelect(): void {
+    this.targetSelect = false;
+    this.wallSelect = false;
+    this.sourceSelect = true;
+  }
+
+  enableTargetSelect(): void {
+    this.sourceSelect = false;
+    this.wallSelect = false;
+    this.targetSelect = true;
+  }
+
+  enableWallSelect(): void {
+    this.sourceSelect = false;
+    this.targetSelect = false;
+    this.wallSelect = true;
   }
 }
