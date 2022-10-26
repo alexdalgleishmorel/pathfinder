@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { AStarPathfinderService } from '../services/aStarService/a-star-pathfinder.service';
 import { GridDataService } from '../services/gridService/grid-data.service';
 
@@ -15,9 +15,12 @@ export class TileComponent implements OnInit {
   public target: boolean = false; 
   public searched: boolean = false;
   public path: boolean = false;
+  public wall: boolean = false;
+  public mouseIsDown: boolean = false;
 
   constructor(
-    private gridDataService: GridDataService
+    private gridDataService: GridDataService,
+    private renderer2: Renderer2
     ) { }
 
   ngOnInit(): void {
@@ -38,9 +41,11 @@ export class TileComponent implements OnInit {
         }
       }
       else if (value[0] == -1) {
+        this.gridDataService.setWallTile(this.coordinate, 0);
         this.default = true;
         this.searched = false;
         this.path = false;
+        this.wall = false;
       }
     });
 
@@ -69,6 +74,8 @@ export class TileComponent implements OnInit {
       this.gridDataService.setSourceTileValue(this.coordinate);
       this.default = false;
       this.target = false;
+      this.wall = false;
+      this.searched = false;
       this.source = true;
     }
     // If the user is currently choosing a target tile, then set the target tile value to be this tile's
@@ -76,7 +83,28 @@ export class TileComponent implements OnInit {
       this.gridDataService.setTargetTileValue(this.coordinate);
       this.default = false;
       this.source = false;
+      this.wall = false;
+      this.searched = false;
       this.target = true;
+    }
+    // If the user is currently choosing a wall tile, then set a wall tile value to be this tile's
+    else if (this.gridDataService.wallSelect) {
+      this.gridDataService.setWallTile(this.coordinate, -1);
+      this.default = false;
+      this.source = false;
+      this.target = false;
+      this.searched = false;
+      this.wall = true;
+    }
+  }
+
+  onHover() {
+    if (this.gridDataService.wallSelect) {
+      this.default = false;
+      this.source = false;
+      this.target = false;
+      this.searched = false;
+      this.wall = true;
     }
   }
 }

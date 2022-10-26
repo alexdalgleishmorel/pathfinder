@@ -89,6 +89,15 @@ export class GridDataService {
     this.targetTileObservable.next(newValue);
   }
 
+  setWallTile(coord: number[], value: number) {
+    this.grid[coord[0]][coord[1]][0] = value;
+    this.grid[coord[0]][coord[1]][1] = value;
+  }
+
+  checkIfWallTile(coord: number[]) {
+    return (this.grid[coord[0]][coord[1]][0] == -1 && this.grid[coord[0]][coord[1]][1] == -1);
+  }
+
   enableSourceSelect(): void {
     this.targetSelect = false;
     this.wallSelect = false;

@@ -39,7 +39,7 @@ export class AStarPathfinderService {
         if (current.element[0] === goal[0] && current.element[1] === goal[1]) {
           return this.reconstructPath(cameFrom, current.element, start);
         }
-        let neighbors = getNeighbors(current.element, rows, cols, gScore);
+        let neighbors = this.getNeighbors(current.element, rows, cols, gScore);
         for (var i = 0; i < neighbors.length; i++) {
             let neighbor = coordToString(neighbors[i]);
             if (current.element[0] == 9 && current.element[1] == 9) {
@@ -87,6 +87,47 @@ export class AStarPathfinderService {
     // Flipping total path list so it begins with start coords and ends with goal coords
     return total_path.reverse();
   }
+
+  // Establishes neighbors of the given node
+  getNeighbors(node: number[], rows:number, cols:number, gScore: Record<string, number>) {
+    let x = node[0];
+    let y = node[1];
+    
+    // Initially setting all 4 directions from node to be neighbors
+    let neighbors = [[(x+1), y], [(x-1), y], [x, (y-1)], [x, (y+1)]]; // E W N S
+    let validNeighbors = [];
+    if (x == 9 && y == 9) {
+      console.log('%s has neighbors:', node);
+      console.log(neighbors);
+    }
+
+    for (var i = 0; i < 4; i++) {
+        let x = neighbors[i][0];
+        let y = neighbors[i][1];
+        if (x < 0 || x >= rows) {
+          // ensuring neighbors not in bounds of grid are not added
+          continue;
+        }
+        else if (y < 0 || y >= cols) {
+          // ensuring neighbors not in bounds of grid are not added
+          continue;
+        }
+        else if (this.gridDataService.checkIfWallTile([x,y])) {
+          // ensuring the algorithm skips over tiles that are walls
+          continue;
+        }
+        else if (!(gScore[coordToString(neighbors[i])])) {
+          // assigning infinite gScore as this node is being instantiated
+          gScore[coordToString(neighbors[i])] = Infinity;
+        }
+        validNeighbors.push(neighbors[i]);
+    }
+    if (node[0] == 9 && node[1] == 9) {
+      console.log('%s has neighbors:', node);
+      console.log(neighbors);
+    }
+    return validNeighbors;
+  }
 }
 
 // Converts a coordinate to a number
@@ -104,43 +145,6 @@ function stringToCoordinate(coord: string) {
   let xNumber = +(coordStrings[0]);
   let yNumber = +(coordStrings[1]);
   return [xNumber, yNumber];
-}
-
-// Establishes neighbors of the given node
-function getNeighbors(node: number[], rows:number, cols:number, gScore: Record<string, number>) {
-  let x = node[0];
-  let y = node[1];
-  
-  // Initially setting all 4 directions from node to be neighbors
-  let neighbors = [[(x+1), y], [(x-1), y], [x, (y-1)], [x, (y+1)]]; // E W N S
-  let validNeighbors = [];
-  if (x == 9 && y == 9) {
-    console.log('%s has neighbors:', node);
-    console.log(neighbors);
-  }
-
-  for (var i = 0; i < 4; i++) {
-      let x = neighbors[i][0];
-      let y = neighbors[i][1];
-      if (x < 0 || x >= rows) {
-          // ensuring neighbors not in bounds of grid are not added
-          continue;
-      }
-      else if (y < 0 || y >= cols) {
-          // ensuring neighbors not in bounds of grid are not added
-          continue;
-      }
-      else if (!(gScore[coordToString(neighbors[i])])) {
-        // assigning infinite gScore as this node is being instantiated
-        gScore[coordToString(neighbors[i])] = Infinity;
-      }
-      validNeighbors.push(neighbors[i]);
-  }
-  if (node[0] == 9 && node[1] == 9) {
-    console.log('%s has neighbors:', node);
-    console.log(neighbors);
-  }
-  return validNeighbors;
 }
 
 // Calculates the h score of the given node based on the hypotenuse between the given coordinates
