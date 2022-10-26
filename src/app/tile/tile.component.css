@@ -1,6 +1,6 @@
 .tile {
-    height: 30px;
-    width: 30px;
+    height: 15px;
+    width: 15px;
     background-color: black;
     border: 1px solid grey;
 }
@@ -30,9 +30,17 @@
 }
 
 .searched {
-    background-color: yellow;
-    border: 1px solid yellow;
+    background-color: #f8df95;
+    border: 1px solid #f8df95;
 }
 .searched:hover {
-    background-color: lightyellow;
+    background-color: #ffb449;
+}
+
+.path {
+    background-color: #77dd76;
+    border: 1px solid #77dd76;
+}
+.path:hover {
+    background-color: lime;
 }

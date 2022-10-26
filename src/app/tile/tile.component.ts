@@ -14,6 +14,7 @@ export class TileComponent implements OnInit {
   public source: boolean = false;
   public target: boolean = false; 
   public searched: boolean = false;
+  public path: boolean = false;
 
   constructor(
     private gridDataService: GridDataService
@@ -24,9 +25,22 @@ export class TileComponent implements OnInit {
 
     // Checking for when a tile is discovered by a search algorithm, and changing its color when this occurs
     this.gridDataService.getChangedTileValue().subscribe((value) => {
-      if(this.coordinate[0] == value[0] && this.coordinate[1] == value[1]) {
+      if(this.coordinate[0] == value[0] && this.coordinate[1] == value[1] && !(this.source || this.target)) {
         this.default = false;
-        this.searched = true;
+        if (value[2] == 0) {
+          this.default = false;
+          this.searched = true;
+        }
+        else if (value[2] == 1) {
+          this.default = false;
+          this.searched = false;
+          this.path = true;
+        }
+      }
+      else if (value[0] == -1) {
+        this.default = true;
+        this.searched = false;
+        this.path = false;
       }
     });
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { TILE_SPACE, CONTROL_SPACE } from '../../../assets/constants';
+import { AStarPathfinderService } from '../aStarService/a-star-pathfinder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,15 @@ export class GridDataService {
   private changedTile: any;
   private sourceTile: any;
   private targetTile: any;
+  private sourceTileObservable: any;
+  private targetTileObservable: any;
   private enableSource: boolean = true;
+  private sourceSelected: boolean = false;
   public sourceSelect: boolean = false;
   private enableTarget: boolean = true;
+  private targetSelected: boolean = false;
   public targetSelect: boolean = false;
-  public enableExecute: boolean = false;
-  public executeSelected: boolean = false;
+  public executingAlgorithm: boolean = false;
   private enableWall: boolean = true;
   public wallSelect: boolean = false;
   public rows: any;
@@ -29,8 +33,10 @@ export class GridDataService {
     this.cols = Math.floor(innerWidth/TILE_SPACE);
     this.initializeGrid();
     this.changedTile = new BehaviorSubject<any[]>([]);
-    this.sourceTile = new BehaviorSubject<any[]>([]);
-    this.targetTile = new BehaviorSubject<any[]>([]);
+    this.sourceTileObservable = new BehaviorSubject<any[]>([]);
+    this.targetTileObservable = new BehaviorSubject<any[]>([]);
+    this.sourceTile = [];
+    this.targetTile = [];
   }
 
   initializeGrid() {
@@ -56,19 +62,31 @@ export class GridDataService {
   }
 
   getSourceTileValue(): Observable<any[]> {
+    return this.sourceTileObservable;
+  }
+
+  getSourceTile() {
     return this.sourceTile;
   }
 
   setSourceTileValue(newValue: any[]): void {
-    this.sourceTile.next(newValue);
+    this.sourceSelected = true;
+    this.sourceTile = newValue;
+    this.sourceTileObservable.next(newValue);
   }
 
   getTargetTileValue(): Observable<any[]> {
+    return this.targetTileObservable;
+  }
+
+  getTargetTile() {
     return this.targetTile;
   }
 
   setTargetTileValue(newValue: any[]): void {
-    this.targetTile.next(newValue);
+    this.targetSelected = true;
+    this.targetTile = newValue;
+    this.targetTileObservable.next(newValue);
   }
 
   enableSourceSelect(): void {
@@ -87,5 +105,22 @@ export class GridDataService {
     this.sourceSelect = false;
     this.targetSelect = false;
     this.wallSelect = true;
+  }
+
+  setExecute(bool: boolean) {
+    this.executingAlgorithm = bool;
+  }
+
+  getExecutePermission() {
+    console.log(!this.executingAlgorithm, this.sourceSelected, this.targetSelected);
+    return !this.executingAlgorithm && this.sourceSelected && this.targetSelected;
+  }
+
+  reset() {
+    this.setSourceTileValue([]);
+    this.sourceSelected = false;
+    this.setTargetTileValue([]);
+    this.targetSelected = false;
+    this.setChangedTileValue([-1, -1]);
   }
 }

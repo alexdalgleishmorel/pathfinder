@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AStarPathfinderService } from '../services/aStarService/a-star-pathfinder.service';
 import { GridDataService } from '../services/gridService/grid-data.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { GridDataService } from '../services/gridService/grid-data.service';
 export class ControlButtonsComponent implements OnInit {
 
   constructor(
-    private gridDataService: GridDataService
+    private gridDataService: GridDataService,
+    private aStarService: AStarPathfinderService
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +30,19 @@ export class ControlButtonsComponent implements OnInit {
   }
 
   executeClick () {
-
+    if (this.gridDataService.getExecutePermission()) {
+      this.gridDataService.setExecute(true);
+      console.log(this.aStarService.aStarPathfinder(
+        this.gridDataService.getSourceTile(), 
+        this.gridDataService.getTargetTile(), 
+        this.gridDataService.rows, 
+        this.gridDataService.cols
+      ));
+      this.gridDataService.setExecute(false);
+    }
   }
 
+  deleteClick() {
+    this.gridDataService.reset();
+  }
 }
