@@ -2,7 +2,7 @@
     <button
     (click)="sourceClick()"
     class="control-button source" 
-    mat-fab color="warn" 
+    mat-fab color="source" 
     aria-label="Source tile selection icon">
         <mat-icon>location_on</mat-icon>
     </button>
@@ -10,7 +10,7 @@
     <button 
     (click)="targetClick()"
     class="control-button destination" 
-    mat-fab color="primary" 
+    mat-fab color="target" 
     aria-label="Destination tile selection icon">
         <mat-icon>my_location</mat-icon>
     </button>
@@ -18,21 +18,21 @@
     <button 
     (click)="wallClick()"
     class="control-button execute" 
-    mat-fab color="warn" 
+    mat-fab color="wall" 
     aria-label="Wall tile selection icon">
         <mat-icon>remove_circle</mat-icon>
     </button>
     <span class="horizontal-divider"></span>
     <button class="control-button execute"
     (click)="executeClick()"
-    mat-fab color="accent" 
+    mat-fab color="execute" 
     aria-label="Execution selection icon">
         <mat-icon>play_circle_filled</mat-icon>
     </button>
     <span class="horizontal-divider"></span>
     <button class="control-button delete"
     (click)="deleteClick()"
-    mat-fab color="warn" 
+    mat-fab color="delete" 
     aria-label="Delete selection icon">
         <mat-icon>delete</mat-icon>
     </button>
