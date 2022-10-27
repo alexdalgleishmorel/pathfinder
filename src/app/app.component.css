@@ -10,3 +10,29 @@
 .vertical-divider {
     height:20px;
 }
+
+.horizontal-divider {
+    width:25px;
+    height:auto;
+    display:inline-block;
+}
+
+.mat-light {
+    background-color: white;
+    color: black;
+}
+
+.mat-light:hover {
+    background-color: black;
+    color: white;
+}
+
+.mat-dark {
+    background-color: white;
+    color: black;
+}
+
+.mat-dark:hover {
+    background-color: black;
+    color: white;
+}
