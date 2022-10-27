@@ -9,13 +9,18 @@ import { GridDataService } from '../services/gridService/grid-data.service';
 })
 export class TileComponent implements OnInit {
   @Input() tilePosition: any;
+  // The coordinate of this tile
   public coordinate: number[] = [];
+
+  // The possible roles of this tile on the grid
   public default: boolean = true;
   public source: boolean = false;
   public target: boolean = false; 
   public searched: boolean = false;
   public path: boolean = false;
   public wall: boolean = false;
+
+  // A value that tracks if the user is holding down the mouse
   public mouseIsDown: boolean = false;
 
   constructor(
@@ -28,8 +33,12 @@ export class TileComponent implements OnInit {
 
     // Checking for when a tile is discovered by a search algorithm, and changing its color when this occurs
     this.gridDataService.getChangedTileValue().subscribe((value) => {
+      // Checking if this tile has been notified to change, and confirming it isn't the source or target tile
       if(this.coordinate[0] == value[0] && this.coordinate[1] == value[1] && !(this.source || this.target)) {
+        
         this.default = false;
+
+        // Checking the third index of value to determine what to do with the changed tile
         if (value[2] == 0) {
           this.default = false;
           this.searched = true;
@@ -40,6 +49,7 @@ export class TileComponent implements OnInit {
           this.path = true;
         }
       }
+      // If the changed tile value is 0, this signals a reset of the grid, and all tiles change back to default
       else if (value[0] == -1) {
         this.gridDataService.setWallTile(this.coordinate, 0);
         this.default = true;
@@ -68,7 +78,20 @@ export class TileComponent implements OnInit {
     });
   }
 
+  // Describes possible actions to take when a tile is clicked
   onClick() {
+    this.trySourceDraw();
+    this.tryTargetDraw();
+    this.tryWallDraw(true);
+  }
+
+  // Describes possible actions to take when a tile is hovered on
+  onHover() {
+    this.tryWallDraw(false);
+  }
+
+  // Sets this tile to be the source if the current state allows for it
+  trySourceDraw() {
     // If the user is currently choosing a source tile, then set the source tile value to be this tile's
     if (this.gridDataService.sourceSelect) {
       this.gridDataService.setSourceTileValue(this.coordinate);
@@ -78,8 +101,12 @@ export class TileComponent implements OnInit {
       this.searched = false;
       this.source = true;
     }
+  }
+
+  // Sets this tile to be the target if the current state allows for it
+  tryTargetDraw() {
     // If the user is currently choosing a target tile, then set the target tile value to be this tile's
-    else if (this.gridDataService.targetSelect) {
+    if (this.gridDataService.targetSelect) {
       this.gridDataService.setTargetTileValue(this.coordinate);
       this.default = false;
       this.source = false;
@@ -87,26 +114,12 @@ export class TileComponent implements OnInit {
       this.searched = false;
       this.target = true;
     }
-    // If the user is currently choosing a wall tile, then set a wall tile value to be this tile's
-    else if (this.gridDataService.wallSelect) {
-      this.source = false;
-      this.target = false;
-      this.searched = false;
-      if (!this.wall) {
-        this.gridDataService.setWallTile(this.coordinate, -1);
-        this.default = false;
-        this.wall = true;
-      }
-      else {
-        this.gridDataService.setWallTile(this.coordinate, 0);
-        this.default = true;
-        this.wall = false;
-      }
-    }
   }
 
-  onHover() {
-    if (this.gridDataService.wallSelect && this.gridDataService.getMouseDown()) {
+  // Sets this tile to be a wall if the current state allows for it
+  tryWallDraw(click: boolean) {
+    // If the user is currently choosing a wall tile, via click or drag, then set a wall tile value to be this tile's
+    if (this.gridDataService.wallSelect && (this.gridDataService.getMouseDown() || click)) {
       this.source = false;
       this.target = false;
       this.searched = false;
