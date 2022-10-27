@@ -22,6 +22,11 @@
     color: red;
 }
 
+.mat-source:active {
+    background-color: rgb(255, 130, 130);
+    color: white;
+}
+
 .mat-target {
     background-color: purple;
     color: white;
@@ -30,6 +35,11 @@
 .mat-target:hover {
     background-color: white;
     color: purple;
+}
+
+.mat-target:active {
+    background-color: rgb(255, 0, 255);
+    color: white;
 }
 
 .mat-execute {
@@ -42,6 +52,11 @@
     color: green;
 }
 
+.mat-execute:active {
+    background-color: rgb(0, 255, 0);
+    color: white;
+}
+
 .mat-wall {
     background-color: white;
     color: grey;
@@ -49,6 +64,11 @@
 
 .mat-wall:hover {
     background-color: grey;
+    color: white;
+}
+
+.mat-wall:active {
+    background-color: black;
     color: white;
 }
 
@@ -60,4 +80,9 @@
 .mat-delete:hover {
     background-color: white;
     color: red;
+}
+
+.mat-delete:active {
+    background-color: rgb(255, 130, 130);
+    color: white;
 }
