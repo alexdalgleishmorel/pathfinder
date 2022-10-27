@@ -8,7 +8,8 @@
 
 ## Running
 
-Run `ng serve`. Navigate to `http://localhost:4200/`.
+- Run `ng serve`. ***This command can take some time to execute, wait until the terminal displays `✔ Compiled successfully`.
+- Navigate to `http://localhost:4200/`.
 
 ## Further help
 
