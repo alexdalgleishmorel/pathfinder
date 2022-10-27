@@ -9,15 +9,14 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 })
 export class AStarPathfinderService {
 
+  public sleepTime: number = 10;
+
   constructor(
     private priorityQueueService: PriorityQueueService,
     private gridDataService: GridDataService
     ) { }
 
   async aStarPathfinder (start: number[], goal: number[], rows: number, cols: number) {
-    let gScore: Record<string, number> = {};
-    let cameFrom: Record<string, string> = {};
-    let fScore: Record<string, number> = {};
     // The set of discovered nodes that may need to be (re-)expanded.
     // Initially, only the start node is known.
     // This is usually implemented as a min-heap or priority queue rather than a hash-set.
@@ -26,26 +25,30 @@ export class AStarPathfinderService {
   
     // For node n, cameFrom[n] is the node immediately preceding it on the cheapest path from start
     // to n currently known.
+    let cameFrom: Record<string, string> = {};
   
     // For node n, gScore[n] is the cost of the cheapest path from start to n currently known.
+    let gScore: Record<string, number> = {};
     gScore[coordToString(start)] = 0;
   
     // For node n, fScore[n] := gScore[n] + h(n). fScore[n] represents our current best guess as to
     // how short a path from start to finish can be if it goes through n.
+    let fScore: Record<string, number> = {};
     fScore[coordToString(start)] = calcHscore(start, goal);
-  
+
+    // Continue searching until no more neighbors can be inspected, or the goal is found
     while (!openQueue.isEmpty()) {
         let current = openQueue.dequeue();
+        // If we have reached the goal, we can reconstruct the path and exit
         if (current.element[0] === goal[0] && current.element[1] === goal[1]) {
           return this.reconstructPath(cameFrom, current.element, start);
         }
+
+        // Get the neighbors in each direction of the current node being inspected
         let neighbors = this.getNeighbors(current.element, rows, cols, gScore);
         for (var i = 0; i < neighbors.length; i++) {
             let neighbor = coordToString(neighbors[i]);
-            if (current.element[0] == 9 && current.element[1] == 9) {
-              console.log(neighbors[i]);
-              console.log(neighbor);
-            }
+
             // tentative_gScore is the distance from start to the neighbor through current
             let tentative_gScore = gScore[coordToString(current.element)] + 1;
             if (tentative_gScore < gScore[neighbor]) {
@@ -55,12 +58,11 @@ export class AStarPathfinderService {
                 fScore[neighbor] = gScore[neighbor] + calcHscore(neighbors[i], goal);
                 if (!openQueue.contains(neighbors[i], fScore[neighbor])) {
                     openQueue.enqueue(neighbors[i], fScore[neighbor]);
-                    let coordToDraw = neighbors[i];
-                    coordToDraw.push(0);
-                    this.gridDataService.setChangedTileValue(coordToDraw);
+                    
+                    this.updateTile(neighbors[i], 0);
                 }
             }
-            await sleep(10);
+            await sleep(this.sleepTime);
         }
     }
     // Open set is empty but goal was never reached
@@ -78,11 +80,12 @@ export class AStarPathfinderService {
       // Add parent of node to total path list
       current = stringToCoordinate(cameFrom[coordToString(current)]);
       total_path.push(current);
-      let coordToDraw = current;
-      console.log(coordToDraw);
-      coordToDraw.push(1);
-      this.gridDataService.setChangedTileValue(coordToDraw);
-      await sleep(10);
+
+      // Update the user interface
+      this.updateTile(current, 1);
+
+      // Sleep to animate the algorithm on UI
+      await sleep(this.sleepTime);
     }
     // Flipping total path list so it begins with start coords and ends with goal coords
     return total_path.reverse();
@@ -96,10 +99,6 @@ export class AStarPathfinderService {
     // Initially setting all 4 directions from node to be neighbors
     let neighbors = [[(x+1), y], [(x-1), y], [x, (y-1)], [x, (y+1)]]; // E W N S
     let validNeighbors = [];
-    if (x == 9 && y == 9) {
-      console.log('%s has neighbors:', node);
-      console.log(neighbors);
-    }
 
     for (var i = 0; i < 4; i++) {
         let x = neighbors[i][0];
@@ -122,11 +121,12 @@ export class AStarPathfinderService {
         }
         validNeighbors.push(neighbors[i]);
     }
-    if (node[0] == 9 && node[1] == 9) {
-      console.log('%s has neighbors:', node);
-      console.log(neighbors);
-    }
     return validNeighbors;
+  }
+
+  updateTile(coord: number[], value: number) {
+    coord.push(value);
+    this.gridDataService.setChangedTileValue(coord);
   }
 }
 

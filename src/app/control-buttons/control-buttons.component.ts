@@ -30,14 +30,15 @@ export class ControlButtonsComponent implements OnInit {
   }
 
   executeClick () {
+    // Checking if the current state allows for an algorithm to run
     if (this.gridDataService.getExecutePermission()) {
       this.gridDataService.setExecute(true);
-      console.log(this.aStarService.aStarPathfinder(
+      this.aStarService.aStarPathfinder(
         this.gridDataService.getSourceTile(), 
         this.gridDataService.getTargetTile(), 
         this.gridDataService.rows, 
         this.gridDataService.cols
-      ));
+      );
       this.gridDataService.setExecute(false);
     }
   }
