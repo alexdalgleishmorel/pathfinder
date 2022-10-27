@@ -38,11 +38,11 @@
 }
 
 .path {
-    background-color: #77dd76;
-    border: 1px solid #77dd76;
+    background-color: lime;
+    border: 1px solid lime;
 }
 .path:hover {
-    background-color: lime;
+    background-color: #77dd76;
 }
 
 .wall {

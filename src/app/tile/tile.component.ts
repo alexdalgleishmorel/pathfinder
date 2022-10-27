@@ -89,12 +89,19 @@ export class TileComponent implements OnInit {
     }
     // If the user is currently choosing a wall tile, then set a wall tile value to be this tile's
     else if (this.gridDataService.wallSelect) {
-      this.gridDataService.setWallTile(this.coordinate, -1);
-      this.default = false;
       this.source = false;
       this.target = false;
       this.searched = false;
-      this.wall = true;
+      if (!this.wall) {
+        this.gridDataService.setWallTile(this.coordinate, -1);
+        this.default = false;
+        this.wall = true;
+      }
+      else {
+        this.gridDataService.setWallTile(this.coordinate, 0);
+        this.default = true;
+        this.wall = false;
+      }
     }
   }
 
