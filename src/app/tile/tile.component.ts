@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { AStarPathfinderService } from '../services/aStarService/a-star-pathfinder.service';
+import { ColorThemeService } from '../services/colorThemeService/color-theme.service';
 import { GridDataService } from '../services/gridService/grid-data.service';
 
 @Component({
@@ -20,16 +20,32 @@ export class TileComponent implements OnInit {
   public path: boolean = false;
   public wall: boolean = false;
 
+  // Color theme options
+  public light: boolean = false;
+  public dark: boolean = true;
+
   // A value that tracks if the user is holding down the mouse
   public mouseIsDown: boolean = false;
 
   constructor(
     private gridDataService: GridDataService,
-    private renderer2: Renderer2
+    private colorThemeService: ColorThemeService
     ) { }
 
   ngOnInit(): void {
     this.coordinate = [this.tilePosition[0], this.tilePosition[1]];
+
+    // Subsribe to color theme changes
+    this.colorThemeService.getColorThemeValue().subscribe((value) => {
+      if (value == 'light') {
+        this.dark = false;
+        this.light = true;
+      } 
+      else {
+        this.light = false;
+        this.dark = true;
+      }
+    });
 
     // Checking for when a tile is discovered by a search algorithm, and changing its color when this occurs
     this.gridDataService.getChangedTileValue().subscribe((value) => {

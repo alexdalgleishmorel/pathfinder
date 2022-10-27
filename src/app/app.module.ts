@@ -11,13 +11,17 @@ import { TileComponent } from './tile/tile.component';
 import { GridComponent } from './grid/grid.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ControlButtonsComponent } from './control-buttons/control-buttons.component';
+import { AlgorithmMenuComponent } from './algorithm-menu/algorithm-menu.component';
+import { ThemeButtonsComponent } from './theme-buttons/theme-buttons.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TileComponent,
     GridComponent,
-    ControlButtonsComponent
+    ControlButtonsComponent,
+    AlgorithmMenuComponent,
+    ThemeButtonsComponent
   ],
   imports: [
     BrowserModule,

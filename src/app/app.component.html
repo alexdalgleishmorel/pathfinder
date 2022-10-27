@@ -1,13 +1,8 @@
 <div class="vertical-divider"></div>
-<div class="algorithm-select-row">
-<mat-form-field>
-    <mat-label>Select An Algorithm</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm">
-        {{algorithm}}
-      </mat-option>
-    </mat-select>
-</mat-form-field>
+<div class="menu-options">
+  <app-algorithm-menu></app-algorithm-menu>
+  <span class="horizontal-divider"></span>
+  <app-theme-buttons></app-theme-buttons>
 </div>
 <div class="vertical-divider"></div>
 <div class="grid-container">

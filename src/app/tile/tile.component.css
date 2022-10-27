@@ -1,54 +1,105 @@
 .tile {
     height: 15px;
     width: 15px;
-    background-color: black;
     border: 1px solid rgb(54, 54, 54);
 }
 
-.default {
-    background-color: black;
-    border: 1px solid rgb(54, 54, 54);
-}
-.default:hover {
+/* LIGHT MODE */
+
+.light.default {
     background-color: white;
+    border: 1px solid rgb(180, 180, 180);
+}
+.light.default:hover {
+    background-color: black;
 }
 
-.target {
+.light.target {
     background-color: indigo;
     border: 1px solid indigo;
 }
-.target:hover {
+.light.target:hover {
     background-color: purple;
 }
 
-.source {
+.light.source {
     background-color: red;
     border: 1px solid red;
 }
-.source:hover {
+.light.source:hover {
     background-color: lightcoral;
 }
 
-.searched {
+.light.searched {
     background-color: #f8df95;
     border: 1px solid #f8df95;
 }
-.searched:hover {
+.light.searched:hover {
     background-color: #ffb449;
 }
 
-.path {
+.light.path {
     background-color: lime;
     border: 1px solid lime;
 }
-.path:hover {
+.light.path:hover {
     background-color: #77dd76;
 }
 
-.wall {
+.light.wall {
+    background-color: black;
+    border: 1px solid black; 
+}
+.light.wall:hover {
+    background-color: grey;
+}
+
+/* DARK MODE */
+
+.dark.default {
+    background-color: black;
+    border: 1px solid rgb(41, 41, 41);
+}
+.dark.default:hover {
+    background-color: white;
+}
+
+.dark.target {
+    background-color: indigo;
+    border: 1px solid indigo;
+}
+.dark.target:hover {
+    background-color: purple;
+}
+
+.dark.source {
+    background-color: red;
+    border: 1px solid red;
+}
+.dark.source:hover {
+    background-color: lightcoral;
+}
+
+.dark.searched {
+    background-color: #f8df95;
+    border: 1px solid #f8df95;
+}
+.dark.searched:hover {
+    background-color: #ffb449;
+}
+
+.dark.path {
+    background-color: lime;
+    border: 1px solid lime;
+}
+.dark.path:hover {
+    background-color: #77dd76;
+}
+
+.dark.wall {
     background-color: white;
     border: 1px solid white; 
 }
-.wall:hover {
+.dark.wall:hover {
     background-color: grey;
 }

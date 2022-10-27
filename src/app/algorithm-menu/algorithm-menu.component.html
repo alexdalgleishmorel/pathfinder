@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Select An Algorithm</mat-label>
+    <mat-select>
+        <mat-option class="algorithms" *ngFor="let algorithm of algorithms" [value]="algorithm">
+        {{algorithm}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

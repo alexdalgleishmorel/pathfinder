@@ -17,6 +17,10 @@
     display:inline-block;
 }
 
+.menu-options {
+    text-align: center;
+}
+
 .mat-light {
     background-color: white;
     color: black;

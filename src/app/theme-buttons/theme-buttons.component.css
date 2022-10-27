@@ -1,0 +1,24 @@
+.horizontal-divider {
+    width:20px;
+    height:auto;
+    display:inline-block;
+}
+
+.theme-buttons {
+    float: right;
+}
+
+.mat-color-theme {
+    background-color: rgb(54, 54, 54);;
+    color: #fdfd96;
+}
+
+.mat-color-theme:hover {
+    background-color: #fdfd96;
+    color: rgb(54, 54, 54);;
+}
+
+.mat-color-theme:active {
+    background-color: rgb(54, 54, 54);;
+    color: rgb(54, 54, 54);;
+}
