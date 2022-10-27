@@ -25,6 +25,7 @@ export class GridDataService {
   public wallSelect: boolean = false;
   public rows: any;
   public cols: any;
+  public mouseDown: boolean = false;
 
   constructor() {
     let innerWidth = window.innerWidth;
@@ -131,5 +132,13 @@ export class GridDataService {
     this.setTargetTileValue([]);
     this.targetSelected = false;
     this.setChangedTileValue([-1, -1]);
+  }
+
+  setMouseDown (bool: boolean) {
+    this.mouseDown = bool;
+  }
+
+  getMouseDown () {
+    return this.mouseDown;
   }
 }

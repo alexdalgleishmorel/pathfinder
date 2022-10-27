@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { GridDataService } from '../services/gridService/grid-data.service';
 
 @Component({
@@ -13,5 +13,15 @@ export class GridComponent implements OnInit {
 
   ngOnInit() {
     this.grid = this.service.getGrid();
+  }
+
+  @HostListener("mousedown", ["$event"])
+  onDown() {
+    this.service.setMouseDown(true);
+  }
+
+  @HostListener("mouseup", ["$event"])
+  onUp() {
+    this.service.setMouseDown(false);
   }
 }

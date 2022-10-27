@@ -106,12 +106,20 @@ export class TileComponent implements OnInit {
   }
 
   onHover() {
-    if (this.gridDataService.wallSelect) {
-      this.default = false;
+    if (this.gridDataService.wallSelect && this.gridDataService.getMouseDown()) {
       this.source = false;
       this.target = false;
       this.searched = false;
-      this.wall = true;
+      if (!this.wall) {
+        this.gridDataService.setWallTile(this.coordinate, -1);
+        this.default = false;
+        this.wall = true;
+      }
+      else {
+        this.gridDataService.setWallTile(this.coordinate, 0);
+        this.default = true;
+        this.wall = false;
+      }
     }
   }
 }
