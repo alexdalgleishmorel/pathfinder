@@ -154,12 +154,17 @@ export class GridDataService {
   }
 
   // This resets all control values, in order for the user to create a new state
-  reset() {
+  resetAll() {
     this.setSourceTileValue([]);
     this.sourceSelected = false;
     this.setTargetTileValue([]);
     this.targetSelected = false;
     this.setChangedTileValue([-1, -1]);
+  }
+
+  // This resets only the tiles drawn by the algorithm back to their defaults
+  resetPath() {
+    this.setChangedTileValue([-2, -2]);
   }
 
   // This sets the mouseDown boolean attribute. It should be true when the user is holding a click, and false when they release a click

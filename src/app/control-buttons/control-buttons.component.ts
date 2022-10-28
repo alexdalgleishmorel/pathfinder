@@ -8,6 +8,9 @@ import { GridDataService } from '../services/gridService/grid-data.service';
   styleUrls: ['./control-buttons.component.css']
 })
 export class ControlButtonsComponent implements OnInit {
+  // deleteCount tracks the number of times the user has tried to delete since executing an algorithm,
+  // this will be used to determine whether to erase everything, or just the path drawn by the algorithm
+  private deleteCount: number = 0;
 
   constructor(
     private gridDataService: GridDataService,
@@ -32,6 +35,9 @@ export class ControlButtonsComponent implements OnInit {
   executeClick () {
     // Checking if the current state allows for an algorithm to run
     if (this.gridDataService.getExecutePermission()) {
+      // Resetting the delete count since new algorithm will be drawn
+      this.deleteCount = 0;
+      // Executing algorithm
       this.gridDataService.setExecute(true);
       this.aStarService.aStarPathfinder(
         this.gridDataService.getSourceTile(), 
@@ -44,6 +50,11 @@ export class ControlButtonsComponent implements OnInit {
   }
 
   deleteClick() {
-    this.gridDataService.reset();
+    this.deleteCount += 1;
+    if (this.deleteCount ==  1) {
+      this.gridDataService.resetPath();
+      return;
+    }
+    this.gridDataService.resetAll();
   }
 }

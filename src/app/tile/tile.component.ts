@@ -65,13 +65,19 @@ export class TileComponent implements OnInit {
           this.path = true;
         }
       }
-      // If the changed tile value is 0, this signals a reset of the grid, and all tiles change back to default
+      // If the changed tile value is -1, this signals a reset of the grid, and all tiles change back to default
       else if (value[0] == -1) {
         this.gridDataService.setWallTile(this.coordinate, 0);
         this.default = true;
         this.searched = false;
         this.path = false;
         this.wall = false;
+      }
+      // If the changed tile value is -2, this signals a reset of the pathway drawn by the algorithm, so searched and path tiles change back to default
+      else if (value[0] == -2 && (this.searched || this.path)) {
+        this.searched = false;
+        this.path = false;
+        this.default = true;
       }
     });
 
