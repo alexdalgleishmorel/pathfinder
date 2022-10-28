@@ -94,8 +94,8 @@ export class TileComponent implements OnInit {
     });
   }
 
-  // Describes possible actions to take when a tile is clicked
-  onClick() {
+  // Describes possible actions to take when a tile is selected
+  onSelect() {
     this.trySourceDraw();
     this.tryTargetDraw();
     this.tryWallDraw(true);
