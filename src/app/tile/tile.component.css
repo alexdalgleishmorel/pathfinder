@@ -7,7 +7,7 @@
 /* LIGHT MODE */
 
 .light.default {
-    background-color: white;
+    background-color: #E1D9D1;
     border: 1px solid rgb(180, 180, 180);
 }
 .light.default:hover {

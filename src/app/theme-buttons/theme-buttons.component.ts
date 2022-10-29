@@ -16,7 +16,7 @@ export class ThemeButtonsComponent implements OnInit {
   }
 
   onLightModeClick() {
-    document.body.style.background = '#FFFAFA';
+    document.body.style.background = '#E1D9D1';
     this.colorThemeService.setColorThemeValue('light');
   }
 

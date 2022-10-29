@@ -19,6 +19,7 @@ export class AlgorithmMenuComponent implements OnInit {
   }
 
   algorithmSelected(algorithm: string) {
+    console.log('NEW ALGORITHM SELECTED');
     this.gridDataService.setAlgorithm(algorithm);
   }
 

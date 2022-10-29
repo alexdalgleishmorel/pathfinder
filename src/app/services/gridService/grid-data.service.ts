@@ -190,5 +190,6 @@ export class GridDataService {
   setAlgorithm(algorithmName: string) {
     this.algorithmSelected = true;
     this.algorithmName = algorithmName;
+    console.log(this.algorithmName);
   }
 }
