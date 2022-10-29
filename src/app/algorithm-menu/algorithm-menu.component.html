@@ -1,7 +1,11 @@
 <mat-form-field>
     <mat-label style="color: grey">Select An Algorithm</mat-label>
     <mat-select>
-        <mat-option class="algorithms" *ngFor="let algorithm of algorithms" [value]="algorithm">
+        <mat-option
+        class="algorithms" 
+        *ngFor="let algorithm of algorithms" 
+        [value]="algorithm"
+        (onSelectionChange)="algorithmSelected(algorithm)">
         {{algorithm}}
         </mat-option>
     </mat-select>

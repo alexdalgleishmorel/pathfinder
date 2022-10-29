@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AStarPathfinderService } from '../services/aStarService/a-star-pathfinder.service';
+import { Algorithms } from 'src/assets/constants';
+import { AStarPathfinderService } from '../services/algorithms/aStarService/a-star-pathfinder.service';
+import { BreadthFirstServiceService } from '../services/algorithms/breadthFirstService/breadth-first-service.service';
+import { DijkstraServiceService } from '../services/algorithms/dijkstraService/dijkstra-service.service';
 import { GridDataService } from '../services/gridService/grid-data.service';
 
 @Component({
@@ -14,7 +17,9 @@ export class ControlButtonsComponent implements OnInit {
 
   constructor(
     private gridDataService: GridDataService,
-    private aStarService: AStarPathfinderService
+    private aStarService: AStarPathfinderService,
+    private dijkstraService: DijkstraServiceService,
+    private breadthFirstService: BreadthFirstServiceService
   ) { }
 
   ngOnInit(): void {
@@ -37,14 +42,41 @@ export class ControlButtonsComponent implements OnInit {
     if (this.gridDataService.getExecutePermission()) {
       // Resetting the delete count since new algorithm will be drawn
       this.deleteCount = 0;
-      // Executing algorithm
+
       this.gridDataService.setExecute(true);
-      this.aStarService.aStarPathfinder(
-        this.gridDataService.getSourceTile(), 
-        this.gridDataService.getTargetTile(), 
-        this.gridDataService.rows, 
-        this.gridDataService.cols
-      );
+
+      let algorithm = this.gridDataService.getAlgorithm();
+
+      if (algorithm == Algorithms.A_STAR) {
+        // Executing A_STAR algorithm
+        this.aStarService.aStarPathfinder(
+          this.gridDataService.getSourceTile(), 
+          this.gridDataService.getTargetTile(), 
+          this.gridDataService.rows, 
+          this.gridDataService.cols
+        );
+      }
+
+      if (algorithm == Algorithms.DIJKSTRA) {
+        // Executing DIJKSTRA algorithm
+        this.dijkstraService.dijkstraPathfinder(
+          this.gridDataService.getSourceTile(), 
+          this.gridDataService.getTargetTile(), 
+          this.gridDataService.rows, 
+          this.gridDataService.cols
+        );
+      }
+
+      if (algorithm == Algorithms.BREADTH) {
+        // Executing BREADTH FIRST SEARCH algorithm
+        this.breadthFirstService.breadthFirstPathfinder(
+          this.gridDataService.getSourceTile(), 
+          this.gridDataService.getTargetTile(), 
+          this.gridDataService.rows, 
+          this.gridDataService.cols
+        );
+      }
+      
       this.gridDataService.setExecute(false);
     }
   }

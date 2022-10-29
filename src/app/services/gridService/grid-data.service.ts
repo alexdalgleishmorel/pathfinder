@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { TILE_SPACE, CONTROL_SPACE } from '../../../assets/constants';
-import { AStarPathfinderService } from '../aStarService/a-star-pathfinder.service';
+import { AStarPathfinderService } from '../algorithms/aStarService/a-star-pathfinder.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,10 @@ export class GridDataService {
   public executingAlgorithm: boolean = false;
   public wallSelect: boolean = false;
   public mouseDown: boolean = false;
+
+  // ALGORITHM VALUES
+  public algorithmSelected: boolean = false;
+  public algorithmName: string = "";
 
   constructor() {
 
@@ -150,7 +154,7 @@ export class GridDataService {
 
   // Checks that the current state is acceptable to allow algorithm execution
   getExecutePermission() {
-    return !this.executingAlgorithm && this.sourceSelected && this.targetSelected;
+    return !this.executingAlgorithm && this.sourceSelected && this.targetSelected && this.algorithmSelected;
   }
 
   // This resets all control values, in order for the user to create a new state
@@ -168,12 +172,23 @@ export class GridDataService {
   }
 
   // This sets the mouseDown boolean attribute. It should be true when the user is holding a click, and false when they release a click
-  setMouseDown (bool: boolean) {
+  setMouseDown(bool: boolean) {
     this.mouseDown = bool;
   }
 
   // This determines if the user is currently holding down the click button on their mouse
-  getMouseDown () {
+  getMouseDown() {
     return this.mouseDown;
+  }
+
+  // Returns the current algorithm selected by the user
+  getAlgorithm() {
+    return this.algorithmName;
+  }
+
+  // Sets the algorithm to be used
+  setAlgorithm(algorithmName: string) {
+    this.algorithmSelected = true;
+    this.algorithmName = algorithmName;
   }
 }

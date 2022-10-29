@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ALGORITHMS } from 'src/assets/constants';
-import { ViewEncapsulation } from '@angular/core';
+import { GridDataService } from '../services/gridService/grid-data.service';
 
 @Component({
   selector: 'app-algorithm-menu',
   templateUrl: './algorithm-menu.component.html',
   styleUrls: ['./algorithm-menu.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class AlgorithmMenuComponent implements OnInit {
 
@@ -14,9 +13,13 @@ export class AlgorithmMenuComponent implements OnInit {
   public lightLabel: boolean = false;
   public darkLabel: boolean = true;
 
-  constructor() { }
+  constructor(private gridDataService: GridDataService) { }
 
   ngOnInit(): void {
+  }
+
+  algorithmSelected(algorithm: string) {
+    this.gridDataService.setAlgorithm(algorithm);
   }
 
 }

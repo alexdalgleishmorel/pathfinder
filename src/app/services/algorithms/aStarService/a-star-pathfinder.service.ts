@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GridDataService } from '../gridService/grid-data.service';
-import { PriorityQueueService } from '../priorityQueueService/priority-queue.service';
+import { GridDataService } from '../../gridService/grid-data.service';
+import { PriorityQueueService } from '../../priorityQueueService/priority-queue.service';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -58,7 +58,8 @@ export class AStarPathfinderService {
                 fScore[neighbor] = gScore[neighbor] + calcHscore(neighbors[i], goal);
                 if (!openQueue.contains(neighbors[i], fScore[neighbor])) {
                     openQueue.enqueue(neighbors[i], fScore[neighbor]);
-                    
+
+                    // Updating UI with the new searched tile
                     this.updateTile(neighbors[i], 0);
                 }
             }
@@ -130,7 +131,7 @@ export class AStarPathfinderService {
   }
 }
 
-// Converts a coordinate to a number
+// Converts a coordinate to a string
 function coordToString(coord: number[]) {
   let xString = coord[0].toString();
   let yString = coord[1].toString();
@@ -139,7 +140,7 @@ function coordToString(coord: number[]) {
   return stringCoord;
 }
 
-// converts a number to a coordinate
+// converts a string to a coordinate
 function stringToCoordinate(coord: string) {
   let coordStrings = coord.split(',');
   let xNumber = +(coordStrings[0]);

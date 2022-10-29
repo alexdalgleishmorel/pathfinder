@@ -15,7 +15,8 @@ export class TileComponent implements OnInit {
   // The possible roles of this tile on the grid
   public default: boolean = true;
   public source: boolean = false;
-  public target: boolean = false; 
+  public target: boolean = false;
+  public active: boolean = false;
   public searched: boolean = false;
   public path: boolean = false;
   public wall: boolean = false;
