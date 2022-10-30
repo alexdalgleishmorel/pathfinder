@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -14,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ControlButtonsComponent } from './control-buttons/control-buttons.component';
 import { AlgorithmMenuComponent } from './algorithm-menu/algorithm-menu.component';
 import { ThemeButtonsComponent } from './theme-buttons/theme-buttons.component';
+import { TitleComponent } from './title/title.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { ThemeButtonsComponent } from './theme-buttons/theme-buttons.component';
     GridComponent,
     ControlButtonsComponent,
     AlgorithmMenuComponent,
-    ThemeButtonsComponent
+    ThemeButtonsComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { ThemeButtonsComponent } from './theme-buttons/theme-buttons.component';
     MatButtonModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

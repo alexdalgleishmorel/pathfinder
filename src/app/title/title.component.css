@@ -1,0 +1,32 @@
+.title {
+    float: left;
+    margin-left: 20px;
+    text-align: left;
+    color: grey;
+    box-shadow: none;
+}
+
+.author {
+    color: grey;
+}
+
+.light.title {
+    background-color: #E1D9D1;
+}
+
+.dark.title {
+    background-color: black;
+}
+
+.title-holder {
+    display: inline;
+}
+
+.horizontal-divider {
+    width:20px;
+    height:auto;
+}
+
+.vertical-divider {
+    height:20px;
+}

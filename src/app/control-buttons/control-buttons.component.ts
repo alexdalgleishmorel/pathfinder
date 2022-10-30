@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Algorithms } from 'src/assets/constants';
 import { AStarPathfinderService } from '../services/algorithms/aStarService/a-star-pathfinder.service';
 import { BreadthFirstServiceService } from '../services/algorithms/breadthFirstService/breadth-first-service.service';
+import { DepthFirstSearchService } from '../services/algorithms/depthFirstService/depth-first-search.service';
 import { DijkstraServiceService } from '../services/algorithms/dijkstraService/dijkstra-service.service';
 import { GridDataService } from '../services/gridService/grid-data.service';
 
@@ -19,7 +20,8 @@ export class ControlButtonsComponent implements OnInit {
     private gridDataService: GridDataService,
     private aStarService: AStarPathfinderService,
     private dijkstraService: DijkstraServiceService,
-    private breadthFirstService: BreadthFirstServiceService
+    private breadthFirstService: BreadthFirstServiceService,
+    private depthFirstService: DepthFirstSearchService
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +72,16 @@ export class ControlButtonsComponent implements OnInit {
       else if (algorithm == Algorithms.BREADTH) {
         // Executing BREADTH FIRST SEARCH algorithm
         this.breadthFirstService.breadthFirstPathfinder(
+          this.gridDataService.getSourceTile(), 
+          this.gridDataService.getTargetTile(), 
+          this.gridDataService.rows, 
+          this.gridDataService.cols
+        );
+      }
+
+      else if (algorithm == Algorithms.DEPTH) {
+        // Executing DEPTH FIRST SEARCH algorithm
+        this.depthFirstService.depthFirstPathfinder(
           this.gridDataService.getSourceTile(), 
           this.gridDataService.getTargetTile(), 
           this.gridDataService.rows, 
