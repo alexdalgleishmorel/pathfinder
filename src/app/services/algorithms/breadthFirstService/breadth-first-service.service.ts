@@ -17,7 +17,6 @@ export class BreadthFirstServiceService {
   async breadthFirstPathfinder (start: number[], goal: number[], rows: number, cols: number) {
     // Creating a grid representation
     let grid: any = createGrid(rows, cols);
-    console.log('source: %s destination %s', start, goal);
 
     // Creating a FIFO queue using an array, with the start node in it to begin
     let startElement = grid[start[0]][start[1]];
@@ -57,9 +56,6 @@ export class BreadthFirstServiceService {
           }
           neighbor.visited = true;
           queue.push(neighbor);
-          console.log('current: %s has added %s to the queue', current.element, neighbor.element);
-          console.log('QUEUE:');
-          console.log(queue);
         }
         // Sleep to animate the algorithm on UI
         await sleep(this.sleepTime);
@@ -75,8 +71,6 @@ export class BreadthFirstServiceService {
   // reconstruct the path that has been found from the goal all the way back to the start node
   async reconstructPath(cameFrom: Record<string, string>, current: number[], start: number[]) {
     let total_path = [current];
-    console.log('source %s dest %s', start, current);
-    console.log(cameFrom);
     while (coordToString(current) !== coordToString(start)) {
       // Add parent of node to total path list
       current = stringToCoordinate(cameFrom[coordToString(current)]);

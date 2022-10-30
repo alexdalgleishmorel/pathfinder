@@ -13,13 +13,12 @@ export class AlgorithmMenuComponent implements OnInit {
   public lightLabel: boolean = false;
   public darkLabel: boolean = true;
 
-  constructor(private gridDataService: GridDataService) { }
+  constructor(private gridDataService: GridDataService) {}
 
   ngOnInit(): void {
   }
 
   algorithmSelected(algorithm: string) {
-    console.log('NEW ALGORITHM SELECTED');
     this.gridDataService.setAlgorithm(algorithm);
   }
 

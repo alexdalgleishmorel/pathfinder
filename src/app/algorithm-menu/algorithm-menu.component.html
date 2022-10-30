@@ -5,7 +5,7 @@
         class="algorithms" 
         *ngFor="let algorithm of algorithms" 
         [value]="algorithm"
-        (onSelectionChange)="algorithmSelected(algorithm)">
+        (click)="algorithmSelected(algorithm)">
         {{algorithm}}
         </mat-option>
     </mat-select>

@@ -75,8 +75,6 @@ export class AStarPathfinderService {
   // reconstruct the path that has been found from the goal all the way back to the start node
   async reconstructPath(cameFrom: Record<string, string>, current: number[], start: number[]) {
     let total_path = [current];
-    console.log('source %s dest %s', start, current);
-    console.log(cameFrom);
     while (coordToString(current) !== coordToString(start)) {
       // Add parent of node to total path list
       current = stringToCoordinate(cameFrom[coordToString(current)]);

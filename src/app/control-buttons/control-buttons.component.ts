@@ -57,7 +57,7 @@ export class ControlButtonsComponent implements OnInit {
         );
       }
 
-      if (algorithm == Algorithms.DIJKSTRA) {
+      else if (algorithm == Algorithms.DIJKSTRA) {
         // Executing DIJKSTRA algorithm
         this.dijkstraService.dijkstraPathfinder(
           this.gridDataService.getSourceTile(), 
@@ -67,7 +67,7 @@ export class ControlButtonsComponent implements OnInit {
         );
       }
 
-      if (algorithm == Algorithms.BREADTH) {
+      else if (algorithm == Algorithms.BREADTH) {
         // Executing BREADTH FIRST SEARCH algorithm
         this.breadthFirstService.breadthFirstPathfinder(
           this.gridDataService.getSourceTile(), 
